@@ -14,16 +14,18 @@ Node* InsertNth(Node *head, int data, int position)
   Node *curr = head;
   Node *newNode = new Node;
   newNode->data = data;
+  if (head == nullptr) {
+    newNode->next = nullptr;
+    return newNode;
+  }
   if (position == 0) {
     newNode->next = head;
     return newNode;
-  } else {
-    for (int i = 0; i < position - 1; i++) {
-      curr = curr->next;
-    }
-    Node *temp = curr->next;
-    curr->next = newNode;
-    newNode->next = temp;
-    return head;
   }
+  for (int i = 0; i < position - 1; i++) {
+    curr = curr->next;
+  }
+  newNode->next = curr->next;
+  curr->next = newNode;
+  return head;
 }
