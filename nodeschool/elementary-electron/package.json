@@ -1,0 +1,14 @@
+{
+  "name": "elementary-electron-tut",
+  "version": "1.0.0",
+  "description": "Tutorial code from the Elementary Electron tutorial on Nodeschool.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Philip Scott",
+  "license": "MIT",
+  "dependencies": {
+    "cat-picture": "^5.1.2"
+  }
+}
