@@ -26,8 +26,7 @@
       1,
       10000
     )
-    camera.lookAt(new THREE.Vector3(-1, 0, -1))
-    camera.position.set(2500, 800, 2500)
+    camera.position.set(0, 0, 200)
     
     scene.add(camera)
 
@@ -46,21 +45,25 @@
     childBox.rotateX(Math.PI / 4)
     box.add(childBox)
 
-    loader = new THREE.JSONLoader()
-    loader.load('gooseFull.js', function(geometry) {
-      var gooseMaterial = new THREE.MeshLambertMaterial({
-        map: THREE.ImageUtils.loadTexture('goose.jpg')
-      })
-      mesh = new THREE.Mesh(geometry, gooseMaterial)
-      mesh.scale.set(1000, 1000, 1000)
-      scene.add(mesh)
-    })
-
     scene.add(box)
     scene.add(childBox)
     box.rotateY(Math.PI / 4)
 
     requestAnimationFrame(render)
+  }
+
+  
+  document.addEventListener('mousedown', onDocumentMouseDown, false)
+  function onDocumentMouseDown (event) {
+    event.preventDefault()
+    var projector = new THREE.Projector()
+    var vector  = new THREE.Vector3((event.clientX / window.innerWidth) * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1, 0.5)
+    projector.unprojectVector(vector, camera)
+    var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize())
+    var intersects = raycaster.intersectObjects(scene.children, true)
+    if (intersects.length > 0) {
+      intersects[0].object.material.color.setHex(Math.random() * 0xffffff)
+    }
   }
 
   function render () {
@@ -69,7 +72,6 @@
     box.rotation.x += 0.01
     box.rotation.y += 0.1
     box.position.x += step
-    mesh.rotation.x += 1
     if (box.position.x > 50 || box.position.x < -50) step *= -1
   }
 
