@@ -1,4 +1,3 @@
-module.exports = function (str) {
-  var content = /@@([^@@]*)@@/.exec(str)[1]
-  return `<blink>${content}</blink>`
-}
+var marked = require('marked')
+
+module.exports = (str) => marked(str).replace(/@@(.+?)@@/g, '<blink>$1</blink>')
