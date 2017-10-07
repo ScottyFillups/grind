@@ -3,13 +3,19 @@
 
 function currify (fn) {
   var args = []
-  return function () {
-    args = args.concat(arguments)
-    // it's not fn.params, idk what it is
-    if (args.length === fn.params.length) {
-      return fn.apply(null, args)
+
+  function curriedFn () {
+    args = args.concat([].slice.call(arguments))
+    if (args.length === fn.length) {
+      var temp = args
+      args = []
+      return fn.apply(null, temp)
+    } else {
+      return curriedFn
     }
   }
+
+  return curriedFn
 }
 
 module.exports = currify
