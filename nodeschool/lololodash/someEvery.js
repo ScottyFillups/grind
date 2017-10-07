@@ -1,18 +1,12 @@
 var _ = require('lodash')
 
 module.exports = function (collection) {
-  var temp = {
-    hot: [],
-    warm: []
-  }
-
-  _.forEach(collection, function (temps, city) {
-    if (_.every(temps, e => e > 19)) {
-      temp.hot.push(city)
-    } else if (_.some(temps, e => e > 19)) {
-      temp.warm.push(city)
+  return _.reduce(collection, (acc, elem, key) => {
+    if (_.every(elem, e => e > 19)) {
+      acc.hot.push(key)
+    } else if (_.some(elem, e => e > 19)) {
+      acc.warm.push(key)
     }
-  })
-
-  return temp
+    return acc
+  }, { hot: [], warm: [] })
 }
