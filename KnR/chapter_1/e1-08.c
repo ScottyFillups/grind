@@ -2,15 +2,15 @@
 
 int main(void)
 {
-  char input;
+    char input;
 
-  while ((input = getchar()) != EOF) {
-    if (input == '\t') {
-      printf(">\b-");
-    } else {
-      putchar(input);
+    while ((input = getchar()) != EOF) {
+        if (input == '\t') {
+            printf(">\b-");
+        } else {
+            putchar(input);
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }
