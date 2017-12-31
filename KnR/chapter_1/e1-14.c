@@ -1,6 +1,9 @@
-#define MAXLINE 1000
+#define MAXLINE 40
 
 #include <stdio.h>
+
+int getlineKnR(char s[], int lim);
+void copy(char s1[], char s2[]);
 
 int main(void)
 {
@@ -10,20 +13,26 @@ int main(void)
     char save[MAXLINE];
 
     max = 0;
-    while ((len = getline(line, MAXLINE)) > 0) {
+    while ((len = getlineKnR(line, MAXLINE)) > 0) {
+        if (line[len-2] != '\n') {
+            while (getchar() != '\n') {
+                len++;
+            }
+        }
         if (len > max) {
             max = len;
             copy(line, save);
         }
-        if (max > 0) {
-            printf("%s", save);
-        }
+    }
+    
+    if (max > 0) {
+        printf("%d: %s\n", max, save);
     }
 
     return 0;
 }
 
-int getline(char s[], int lim)
+int getlineKnR(char s[], int lim)
 {
     int c, i;
 
