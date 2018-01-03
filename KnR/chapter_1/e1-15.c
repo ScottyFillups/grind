@@ -5,8 +5,7 @@
 
 int getlines(char s[], int lim);
 
-int main(void)
-{
+int main(void) {
     char line[MAX_BUFFER];
     int len;
 
@@ -19,8 +18,7 @@ int main(void)
     return 0;
 }
 
-int getlines(char s[], int lim)
-{
+int getlines(char s[], int lim) {
     char input;
     int i;
 

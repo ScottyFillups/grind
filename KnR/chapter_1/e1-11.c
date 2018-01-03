@@ -1,23 +1,19 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-bool is_letter(char a)
-{
+bool is_letter(char a) {
     return ('A' <= a && a <= 'Z') || ('a' <= a && a <= 'z');
 }
 
-bool is_word_char(char a)
-{
+bool is_word_char(char a) {
     return is_letter(a) || ('0' <= a && a <= '9') || (a == '\'');
 }
 
-bool is_whitespace(char a)
-{
+bool is_whitespace(char a) {
     return a == ' ' || a == '\n' || a == '\t';
 }
 
-int main(void)
-{
+int main(void) {
     char input;
     int nw, nl, nc;
     bool in_word = false;

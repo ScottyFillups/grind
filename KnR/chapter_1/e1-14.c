@@ -5,8 +5,7 @@
 int getlineKnR(char s[], int lim);
 void copy(char s1[], char s2[]);
 
-int main(void)
-{
+int main(void) {
     int len;
     int max;
     char line[MAXLINE];
@@ -32,8 +31,7 @@ int main(void)
     return 0;
 }
 
-int getlineKnR(char s[], int lim)
-{
+int getlineKnR(char s[], int lim) {
     int c, i;
 
     for (i=0; i<lim-1 && (c=getchar())!=EOF && c!='\n'; ++i) {
@@ -47,8 +45,7 @@ int getlineKnR(char s[], int lim)
     return i;
 }
 
-void copy(char s1[], char s2[])
-{
+void copy(char s1[], char s2[]) {
     int i;
 
     i = 0;

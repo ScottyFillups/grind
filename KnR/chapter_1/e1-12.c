@@ -3,8 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-int main(void)
-{
+int main(void) {
     char input;
     bool in_word = false;
     int word_size = 0;

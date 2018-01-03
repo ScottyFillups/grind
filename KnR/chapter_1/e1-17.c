@@ -5,8 +5,7 @@
 void reverse(char s[], int lim);
 int getlines(char s[], int lim);
 
-int main(void)
-{
+int main(void) {
     char line[MAX_LEN];
     int len;
 
@@ -19,8 +18,7 @@ int main(void)
 }
 
 // returns length, IGNORING NULL TERMINATOR
-int getlines(char s[], int lim)
-{
+int getlines(char s[], int lim) {
     int i;
     char input;
 
@@ -38,8 +36,7 @@ int getlines(char s[], int lim)
 }
 
 // the newline and null terminator shouldn't change positions
-void reverse(char s[], int lim)
-{
+void reverse(char s[], int lim) {
     char temp[MAX_LEN];
     int i = 0;
     int j = 0;

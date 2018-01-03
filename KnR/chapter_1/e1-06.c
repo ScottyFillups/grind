@@ -1,7 +1,6 @@
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     char input;
     int blanks, tabs, newlines;
     blanks = tabs = newlines = 0;

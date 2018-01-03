@@ -9,8 +9,7 @@ char lower(char a) {
     return a;
 }
 
-int main(void)
-{
+int main(void) {
     char test[ARR_SIZE] = {'a', 'A', 'Z', '2', '!', 'V'};
 
     for (int i = 0; i < ARR_SIZE; i++) {
