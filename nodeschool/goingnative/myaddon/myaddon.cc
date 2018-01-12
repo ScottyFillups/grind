@@ -1,14 +1,14 @@
-#include <nan.h>
+#include <node.h>
+#include <iostream>
 
 using namespace v8;
 
-NAN_METHOD(Print) {
-  printf("FAUX\n");
+void Method(const FunctionCallbackInfo<Value>& args) {
+  std::cout << "I am a native addon and I AM ALIVE!" << std::endl;
 }
 
-NAN_MODULE_INIT(Init) {
-  Nan::Set(target, Nan::New("print").ToLocalChecked(),
-      Nan::GetFunction(Nan::New<FunctionTemplate>(Print)).ToLocalChecked());
+void init(Local<Object> exports) {
+  NODE_SET_METHOD(exports, "print", Method);
 }
 
-NODE_MODULE(myaddon, Init)
+NODE_MODULE(NODE_GYP_MODULE_NAME, init)
