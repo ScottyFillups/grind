@@ -1,0 +1,9 @@
+{
+  "name": "promise-it-wont-hurt",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "q-io": "^1.13.4"
+  }
+}
