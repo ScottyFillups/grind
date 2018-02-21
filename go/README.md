@@ -171,8 +171,89 @@ s = s[2:4]
 
 ![manipulating a slice](https://blog.golang.org/go-slices-usage-and-internals_slice-2.png)
 
+### Functions
+
+* Multiple parameters share a type, you can omit the type for all except the last one
+
+```go
+package main
+
+import "fmt"
+
+func add(x, y int) int {
+  return x + y
+}
+
+func main() {
+  fmt.Println(add(1, 2))
+}
+```
+
+### Methods
+
+* Methods in Go are just functions namespaced to a type
+* Methods can either have value or pointer "receivers" (structs, or pointers to structs)
+* Go automatically handles conversions between values and pointers for method calls
+  * Unlike C, no need to decide between `->` or `.`; everything is just `.`
+
+```go
+package main
+
+import "fmt"
+
+type rect struct {
+  width, height int
+}
+
+func (r *rect) area() int {
+  return r.width * r.height
+}
+
+func (r rect) perim() int {
+  return 2 * r.width + 2 * r.height
+}
+
+func main() {
+  r := rect{width: 10, height: 5}
+  rp := &r
+  fmt.Println(r.area(), r.perim())
+  fmt.Println(rp.area(), rp.perim())
+}
+```
+
+### Defer
+
+* The defer keyword denotes a statement that will run when the surrounding function returns
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+  defer fmt.Println("world")
+  fmt.Println("hello")
+  // Outputs "hello\nworld"
+}
+```
+
 ### Closures
 
+### Backticks
+
+* Backticks in Go is the similar to `<pre>` in HTML
+* Special characters do not need to be escaped
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+  fmt.Println(`hello
+world`)
+}
+```
 
 
 ### References
