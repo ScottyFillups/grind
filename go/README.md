@@ -4,13 +4,61 @@ This is my personal notes for the Go programming language. I occasionally make c
 
 ### hello, world
 
-```go
+```golang
 package main
 
 import "fmt"
 
 func main() {
-  fmt.Println("hello, world")
+    fmt.Println("hello, world")
+}
+```
+
+### BIG GOTCHAS (who thought this was a good idea?)
+
+* Where `t` is an instance of `time`, `t.Format("format string")` must use the following date: `Mon Jan 2 15:04:05 2006 MST`
+
+```golang
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func main() {
+    fmt.Println(time.Now().Local().Format("Wed Fri 5 15:04:05 2016")) // Bad!
+    fmt.Println(time.Now().Local().Format("Jan 2 15:04:05 2006"))     // Okay!
+    fmt.Println(time.Now().Local().Format("Wed")) // Bad!
+    fmt.Println(time.Now().Local().Format("Mon")) // Yay!
+}
+```
+
+### fmt.Printf reference
+
+http://golang-examples.tumblr.com/post/86795367134/fmtprintf-format-reference-cheat-sheet
+
+### Tiny Gotchas
+
+* Conditions don't need to be wrapped by parentheses
+* `nil` in Go is very similar to `NULL` in C, with some exceptions
+* `if` and `for` initializers, conditions, and post statements are all optional
+  * Eg. you can omit the condition in a `for` loop to get an infinite loop
+
+```golang
+package main
+
+import "fmt"
+
+func main() {
+    i := 0
+    for {
+        fmt.Println(i)
+        i += 1
+        if i == 10 {
+            break
+        }
+    }
 }
 ```
 
@@ -19,16 +67,16 @@ func main() {
 * Go packages are heavily reliant on directory structure
 * A package can contain other packages, which are just subdirectories of the root package
 
-```go
+```golang
 package main
 
 import (
-  "fmt"
-  "math/rand"
+    "fmt"
+    "math/rand"
 )
 
 func main() {
-  fmt.Println("My favourite number is", rand.Intn(10))
+    fmt.Println("My favourite number is", rand.Intn(10))
 }
 ```
 
@@ -56,7 +104,7 @@ The `$GOPATH` environment variable should contain all locations of Go workspaces
 * Default value is `nil`
 * Essentially C pointers, but no pointer arithmetic allowed
 
-```
+```golang
 i := 42
 p = &i
 fmt.Println(*p)   // Dereference p, prints 42
@@ -67,14 +115,14 @@ fmt.Println(*p)   // Dereference p, prints 42
 
 * Use the testing package:
 
-```go
+```golang
 import "testing"
 ```
 
 * Tests are supposed to be used in conjunction with `go test`
 * `go test` will automatically execute functions with the following form:
 
-```go
+```golang
 // This is case sensitive
 func TestXxx(*testing.T)
 ```
@@ -97,23 +145,23 @@ console.log(sum(2, 3, 4))   // outputs 9
 console.log(sum(...args))        // outputs 6
 ```
 
-```go
+```golang
 package main
 
 import "fmt"
 
 func sum(nums ...int) {
-  total := 0
-  for _, num := range nums {
-    total += num
-  }
-  return total
+    total := 0
+    for _, num := range nums {
+        total += num
+    }
+    return total
 }
 
 func main() {
-  nums := []int{1, 2, 3}
-  fmt.Println(sum(2, 3, 4))
-  fmt.Println(sum(nums...))
+    nums := []int{1, 2, 3}
+    fmt.Println(sum(2, 3, 4))
+    fmt.Println(sum(nums...))
 }
 ```
 
@@ -130,7 +178,7 @@ _Side note_: `range` is an operator, _not_ a data structure. It's used to iterat
 
 * Arrays, like C, have a fixed length and element type
 
-```go
+```golang
 var a [4]int
 b := [2]string{"Hello", "World"}
 
@@ -147,13 +195,13 @@ c := [...]string{"Testing!", "1", "2", "3"}
 
 * Slices have a fixed element type, but has no specified length
 
-```go
+```golang
 letters := []string{"a", "b", "c", "d"}
 ```
 
 * Slices can also be created with the built-in function `make`. Signature: `func make([]T, len, cap) []T`
 
-```go
+```golang
 s := make([]byte, 5, 5)
 // if cap isn't specified, it equals len, so make([]byte, 5) is equivalent to the above)
 ```
@@ -165,7 +213,7 @@ s := make([]byte, 5, 5)
 
 * Manipulating a slice:
 
-```go
+```golang
 s = s[2:4]
 ```
 
@@ -175,18 +223,53 @@ s = s[2:4]
 
 * Multiple parameters share a type, you can omit the type for all except the last one
 
-```go
+```golang
 package main
 
 import "fmt"
 
 func add(x, y int) int {
-  return x + y
+    return x + y
 }
 
 func main() {
-  fmt.Println(add(1, 2))
+    fmt.Println(add(1, 2))
 }
+```
+
+* Functions can have multiple return values
+
+```golang
+package main
+
+import (
+    "fmt"
+    "errors"
+)
+
+func divide(x, y int) (int, err) {
+    if y == 0 {
+        return -1, errors.New("Cannot divide by 0")
+    }
+    return x / y, nil
+} 
+
+func main() {
+    fmt.Println(divide(3, 3))
+    fmt.Println(divide(3, 0))
+}
+```
+
+### Structs
+
+* Structs can be 
+
+```golang
+package main
+
+import "fmt"
+
+type person struct {
 ```
 
 ### Methods
@@ -196,28 +279,28 @@ func main() {
 * Go automatically handles conversions between values and pointers for method calls
   * Unlike C, no need to decide between `->` or `.`; everything is just `.`
 
-```go
+```golang
 package main
 
 import "fmt"
 
 type rect struct {
-  width, height int
+    width, height int
 }
 
 func (r *rect) area() int {
-  return r.width * r.height
+    return r.width * r.height
 }
 
 func (r rect) perim() int {
-  return 2 * r.width + 2 * r.height
+    return 2 * r.width + 2 * r.height
 }
 
 func main() {
-  r := rect{width: 10, height: 5}
-  rp := &r
-  fmt.Println(r.area(), r.perim())
-  fmt.Println(rp.area(), rp.perim())
+    r := rect{width: 10, height: 5}
+    rp := &r
+    fmt.Println(r.area(), r.perim())
+    fmt.Println(rp.area(), rp.perim())
 }
 ```
 
@@ -225,36 +308,73 @@ func main() {
 
 * The defer keyword denotes a statement that will run when the surrounding function returns
 
-```go
+```golang
 package main
 
 import "fmt"
 
 func main() {
-  defer fmt.Println("world")
-  fmt.Println("hello")
-  // Outputs "hello\nworld"
+    defer fmt.Println("world")
+    fmt.Println("hello")
+    // Outputs "hello\nworld"
 }
 ```
 
 ### Closures
+
+### Type conversions
+
+* Type conversions follow the following format: `desiredType(literal)`
+
+```golang
+float32(2.343)      // 2.343 of type float32
+```
 
 ### Backticks
 
 * Backticks in Go is the similar to `<pre>` in HTML
 * Special characters do not need to be escaped
 
-```go
+```golang
 package main
 
 import "fmt"
 
 func main() {
-  fmt.Println(`hello
-world`)
+    fmt.Println(`hello
+    world`)
 }
 ```
 
+### Readers
+
+* Readers are used when reading a stream of data
+  * This is common when dealing with HTTP requests, or large amounts of data, like video
+* A reader always has a `Read`() method
+
+```golang
+package main
+
+import (
+    "fmt"
+    "io"
+    "strings"
+)
+
+func main() {
+    r := strings.NewReader("Testing!")
+
+    b := make([]byte, 4)
+    for {
+        n, err := r.Read(b)
+        fmt.Printf("%q\n", b[:n])
+
+        if err == io.EOF {
+            break
+        }
+    }
+}
+```
 
 ### References
 
