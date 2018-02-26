@@ -16,6 +16,11 @@ router.get('/:filename', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+  if (!req.files.file) {
+    res.send('No file submitted! :c')
+    return
+  }
+
   const { file } = req.files
   const fileMeta = new Content({ filename: file.name })
 
