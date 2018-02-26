@@ -4,6 +4,7 @@ services:
     build: .
     volumes:
       - ./:/app
+      - content_data:/data/content
     ports:
       - "8080:8080"
     links:
@@ -18,3 +19,4 @@ services:
 
 volumes:
   mongo_data:
+  content_data:
