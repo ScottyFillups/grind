@@ -16,6 +16,7 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+        #  nginx: make custom image that serves the client
 
 volumes:
   mongo_data:

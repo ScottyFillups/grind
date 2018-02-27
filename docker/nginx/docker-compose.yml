@@ -1,0 +1,11 @@
+version: "3"
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+  node:
+    build: ./app
+    ports:
+      - "8080:8080"
+    command: ["yarn", "run", "start"]
