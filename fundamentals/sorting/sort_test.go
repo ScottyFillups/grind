@@ -10,6 +10,7 @@ func TestSimple(t *testing.T) {
 	sorted := []int{1, 2, 3, 4, 5, 6, 8}
 
 	assert.Equal(t, sorted, Bubble(list))
+	assert.Equal(t, sorted, Insertion(list))
 }
 
 func TestDuplicate(t *testing.T) {
@@ -17,4 +18,5 @@ func TestDuplicate(t *testing.T) {
 	sorted := []int{22, 23, 34, 34, 65, 65, 65}
 
 	assert.Equal(t, sorted, Bubble(list))
+	assert.Equal(t, sorted, Insertion(list))
 }
