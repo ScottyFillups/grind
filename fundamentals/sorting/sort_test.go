@@ -11,7 +11,8 @@ func TestSimple(t *testing.T) {
 
 	assert.Equal(t, sorted, Bubble(list))
 	assert.Equal(t, sorted, Insertion(list))
-  assert.Equal(t, sorted, Selection(list))
+	assert.Equal(t, sorted, Selection(list))
+	assert.Equal(t, sorted, Quick(list))
 }
 
 func TestDuplicate(t *testing.T) {
@@ -20,5 +21,6 @@ func TestDuplicate(t *testing.T) {
 
 	assert.Equal(t, sorted, Bubble(list))
 	assert.Equal(t, sorted, Insertion(list))
-  assert.Equal(t, sorted, Selection(list))
+	assert.Equal(t, sorted, Selection(list))
+	assert.Equal(t, sorted, Quick(list))
 }
