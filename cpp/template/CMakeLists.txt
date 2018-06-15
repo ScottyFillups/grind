@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.6)
 project (template)
-add_library(restaurant ../Restaurant.cc)
-add_executable(main ../main.cc)
+add_library(restaurant Restaurant.cc)
+add_executable(main main.cc)
 target_link_libraries(main restaurant)
