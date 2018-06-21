@@ -40,7 +40,7 @@ int main() {
   copy a(1);
   copy b(2);
 
-  copy c = copy(a);
+  copy c = a;
   copy d(b);
   b = a;
   a = mirror(a);
